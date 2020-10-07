@@ -20,6 +20,18 @@ public class CentroUniversitario {
     private ArrayList<Estudante> estudantes;
     private ArrayList<Disciplina> disciplinas;
 
+    public String getNome() {
+        return nome;
+    }
+
+    public ArrayList<Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
     public CentroUniversitario(String nome) {
 
         this.nome = nome;

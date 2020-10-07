@@ -23,6 +23,22 @@ public class Estudante {
         this.email = email;
         this.matriculas = new ArrayList<>();
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public ArrayList<Matricula> getMatriculas() {
+        return matriculas;
+    }
     
     public void addMatricula(Matricula matricula){
         this.matriculas.add(matricula);

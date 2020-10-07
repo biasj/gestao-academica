@@ -15,6 +15,18 @@ public class Disciplina {
     private String codigo;
     private int creditos;
     private ArrayList<Matricula> matriculas;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public ArrayList<Matricula> getMatriculas() {
+        return matriculas;
+    }
     
     public Disciplina(String codigo, int creditos){
         this.codigo = codigo;
