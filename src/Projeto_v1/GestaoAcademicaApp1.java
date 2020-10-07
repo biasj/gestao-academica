@@ -9,7 +9,7 @@ package Projeto_v1;
  *
  * @author Gabriel
  */
-public class Projeto_Centro_Universitario {
+public class GestaoAcademicaApp1 {
 
     /**
      * @param args the command line arguments
@@ -17,6 +17,14 @@ public class Projeto_Centro_Universitario {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("hello world");
+    }
+    
+    // 3 - consulta de informações de estudantes por disciplina
+    public void listarEstudantes(String codigoDisciplina) {
+        // pegar o objeto disciplina através dos dados do CentroUniversitario e usando o getEstudantesMatriculados
+//        if(codigoDisciplina == CentroUniversitario.getDisciplinas().getCodigo()) {
+//            
+//        }
     }
     
 }
