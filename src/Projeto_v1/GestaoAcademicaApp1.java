@@ -5,6 +5,8 @@
  */
 package Projeto_v1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Gabriel
@@ -20,11 +22,20 @@ public class GestaoAcademicaApp1 {
     }
     
     // 3 - consulta de informações de estudantes por disciplina
-    public void listarEstudantes(String codigoDisciplina) {
+    public static void listarEstudantes(String codigoDisciplina) {
         // pegar o objeto disciplina através dos dados do CentroUniversitario e usando o getEstudantesMatriculados
-//        if(codigoDisciplina == CentroUniversitario.getDisciplinas().getCodigo()) {
-//            
-//        }
+        CentroUniversitario senac = new CentroUniversitario("Senac");
+        listarEstudantes(codigoDisciplina, senac);
+    }
+    
+    public static void listarEstudantes(String codigoDisciplina, CentroUniversitario senac) {
+        ArrayList<Disciplina> disciplinas = senac.getDisciplinas();
+        
+        for(Disciplina d: disciplinas) {
+            if(d.getCodigo().equals(codigoDisciplina)) {
+                System.out.println(d.getEstudantesMatriculados());
+            }
+        }
     }
     
 }
