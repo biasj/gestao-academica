@@ -33,7 +33,7 @@ public class GestaoAcademicaApp1 {
         
         for(Disciplina d: disciplinas) {
             if(d.getCodigo().equals(codigoDisciplina)) {
-                System.out.println(d.getEstudantesMatriculados());
+                System.out.println(d.getEstudantesMatriculados()); 
             }
         }
     }
