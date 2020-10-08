@@ -41,9 +41,68 @@ public class CentroUniversitario {
         this.estudantes = new ArrayList<>();
         this.disciplinas = new ArrayList<>();
     }
+    
+    public Disciplina getDisciplina(String codigo) {
+        
+        // loop que vai localizar e atribuir o objeto à variável
+        for (int i=0; i < this.disciplinas.size(); i++){
+            if (disciplinas.get(i).getCodigo() == codigo) {
+                return disciplinas.get(i);
+            }
+        }
+        
+        return null;
+    }
 
     public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) {
+        try {
+            
+            File farqDisciplinas = new File(arqDisciplinas);
+            Scanner scDisciplinas = new Scanner(farqDisciplinas);
+            String sDisciplina;
+            String[] sDisciplinaPartes;
+            Disciplina objDisciplina;
+            
+            
+            while(scDisciplinas.hasNextLine()){
+                
+                 sDisciplina = scDisciplinas.nextLine();
+                 
+                 sDisciplinaPartes = sDisciplina.split(":");
+                 
+                 objDisciplina = new Disciplina(sDisciplinaPartes[0], Integer.parseInt(sDisciplinaPartes[1]));
+                 
+                 this.disciplinas.add(objDisciplina);
+                 
+                 System.out.println("codigo: " + sDisciplinaPartes[0] + " credito: " + sDisciplinaPartes[1]);
+                 
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Erro na abertura de arquivo de disciplinas");
+            e.printStackTrace();
+        }
         
+        try{
+            File farqMatriculas = new File(arqMatriculas);
+            Scanner scMatriculas = new Scanner(farqMatriculas);
+            String sMatricula;
+            String[] sMatriculaPartes;
+            Matricula objMatricula;
+            Disciplina objDisciplina;
+            
+            while(scMatriculas.hasNextLine()){
+                
+                sMatricula = scMatriculas.nextLine();
+                
+                sMatriculaPartes = sMatricula.split(":");
+                
+                objMatricula = new Matricula(null, this.getDisciplina(sMatriculaPartes[1]));
+                
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("Erro na abertura de arquivo de Matriculas.");
+            e.printStackTrace();
+        }
         
     }
     
