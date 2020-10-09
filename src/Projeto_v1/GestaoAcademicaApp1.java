@@ -5,6 +5,7 @@
  */
 package Projeto_v1;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -16,9 +17,12 @@ public class GestaoAcademicaApp1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
-        System.out.println("hello world");
+        System.out.println("Gestão Acadêmica - Centro Universitário SENAC\n");
+        
+        CentroUniversitario senac = new CentroUniversitario("Senac");
+        senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
     }
     
     // 3 - consulta de informações de estudantes por disciplina

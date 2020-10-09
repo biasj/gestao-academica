@@ -1,10 +1,10 @@
-123410: Gabriel da Silva:gabriel@gmail.com
-123411: Marcelo Francisco:marcelo@gmail.com
-123412: Rodrigo Mateus:rodrigo@uol.com
-123413: Debora Ribeiro:debora@hotmail.com
-123414: Bruna Oliveira:bruna@gmail.com
-123415: Jessica Rodrigues:jessica@outlook.com
-123416: Felipe dos Santos:felipe@gmail.com
-123417: Bruna da Silva:brunasilva@gmail.com
-123418: Ana Gabriela:anagabi@gmail.com
-123419: Heitor:heitor@senacsp.edu.br
+123410:Gabriel da Silva:gabriel@gmail.com
+123411:Marcelo Francisco:marcelo@gmail.com
+123412:Rodrigo Mateus:rodrigo@uol.com
+123413:Debora Ribeiro:debora@hotmail.com
+123414:Bruna Oliveira:bruna@gmail.com
+123415:Jessica Rodrigues:jessica@outlook.com
+123416:Felipe dos Santos:felipe@gmail.com
+123417:Bruna da Silva:brunasilva@gmail.com
+123418:Ana Gabriela:anagabi@gmail.com
+123419:Heitor:heitor@senacsp.edu.br

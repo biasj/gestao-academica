@@ -54,82 +54,97 @@ public class CentroUniversitario {
         return null;
     }
 
-    public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) {
+    public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) throws FileNotFoundException {
+        // reader para ler arquivos de estudantes
+        BufferedReader bufferEstudante = new BufferedReader(new FileReader(arqEstudantes));
+        
+        String linhaEstudante[];
+        String linhaMatricula[];
+        String linhaDisciplina[];
+        String linha;
+        
+        // LEITURA DE DISCIPLINAS
         try {
             
             File farqDisciplinas = new File(arqDisciplinas);
             Scanner scDisciplinas = new Scanner(farqDisciplinas);
-            String sDisciplina;
-            String[] sDisciplinaPartes;
-            Disciplina objDisciplina;
-            
-            
+            Disciplina novaDisciplina;
+           
             while(scDisciplinas.hasNextLine()){
                 
-                 sDisciplina = scDisciplinas.nextLine();
+                 linha = scDisciplinas.nextLine();
                  
-                 sDisciplinaPartes = sDisciplina.split(":");
+                 linhaDisciplina = linha.split(":");
                  
-                 objDisciplina = new Disciplina(sDisciplinaPartes[0], Integer.parseInt(sDisciplinaPartes[1]));
+                 // cria novo objeto de disciplina baseado na leitura do arquivo
+                 novaDisciplina = new Disciplina(linhaDisciplina[0], Integer.parseInt(linhaDisciplina[1]));
+                 // adiciona o novo objeto ao array de disciplina da classe CentroUniversitario
+                 this.disciplinas.add(novaDisciplina);
                  
-                 this.disciplinas.add(objDisciplina);
-                 
-                 System.out.println("codigo: " + sDisciplinaPartes[0] + " credito: " + sDisciplinaPartes[1]);
+                 System.out.println("codigo: " + linhaDisciplina[0] + " credito: " + linhaDisciplina[1]);
                  
             }
-        }catch(FileNotFoundException e){
+        } catch(FileNotFoundException e){
             System.out.println("Erro na abertura de arquivo de disciplinas");
             e.printStackTrace();
         }
         
+        // LEITURA DE MATRÍCULAS POR SCANNER -> falta relacionar com os estudantes e com as disciplinas
         try{
             File farqMatriculas = new File(arqMatriculas);
             Scanner scMatriculas = new Scanner(farqMatriculas);
-            String sMatricula;
-            String[] sMatriculaPartes;
-            Matricula objMatricula;
+            
+            Matricula novaMatricula;
             Disciplina objDisciplina;
             
+            // enquanto houver linha seguinte
             while(scMatriculas.hasNextLine()){
+                // le a linha
+                linha = scMatriculas.nextLine();
+                // divide a linha por : e coloca dentro do vetor
+                linhaMatricula = linha.split(":");
                 
-                sMatricula = scMatriculas.nextLine();
+                // não sei se entendi (VERIFICAR)
+                novaMatricula = new Matricula(null, this.getDisciplina(linhaMatricula[1]));
+                // falta criar a disciplina (VERIFICAR)
                 
-                sMatriculaPartes = sMatricula.split(":");
                 
-                objMatricula = new Matricula(null, this.getDisciplina(sMatriculaPartes[1]));
+                // imprime para verificar se está tudo certo (RETIRAR)
+                System.out.println("codigo: " + linhaMatricula[0] + " credito: " + linhaMatricula[1]);
                 
             }
-        }catch(FileNotFoundException e){
+        } catch(FileNotFoundException e){
             System.out.println("Erro na abertura de arquivo de Matriculas.");
             e.printStackTrace();
         }
         
-    }
-    
-    public void carregarDadosEstudantes(String arqEstudantes) throws FileNotFoundException, IOException {
-        BufferedReader r = new BufferedReader(new FileReader(arqEstudantes));
-        String v[];
-        String linha;
-        
+        // LEITURA DE ESTUDANTES
         try {
         // se r!= null significa que r está guardando referência do arquivo físico
-            if(r!=null) {
-                linha=r.readLine();
+            if(bufferEstudante != null) {
+                linha = bufferEstudante.readLine();
                 while(linha != null) {
-                    v = linha.split(":");
-                    // atribui id, nome e e-mail pro estudante
-                    Estudante novoEstudante1 = new Estudante(Long.parseLong(v[0]), v[1], v[2]);
-                    estudantes.add(novoEstudante1);
-                    linha=r.readLine();
+                    linhaEstudante = linha.split(":");
+                    
+                    // cria novo objeto de disciplina baseado na leitura do arquivo
+                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaEstudante[0]), linhaEstudante[1], linhaEstudante[2]);
+                    // adiciona o novo objeto ao array de estudantes da classe
+                    estudantes.add(novoEstudante);
+                    
+                    // imprime para verificar se está tudo certo (RETIRAR)
+                    System.out.println("id: " + linhaEstudante[0] + " nome: " + linhaEstudante[1] + " email: " + linhaEstudante[2]);
+                    
+                    // lê a próxima linha
+                    linha = bufferEstudante.readLine();
                 }
                 
             }
             // encerra comunicação entre arquivo lógico e físico, não encerra arquivo físico
-            r.close();
+            bufferEstudante.close();
             
         } catch(Exception e) {
             System.exit(-1);
-        }
+        }    
     }
     
 }
