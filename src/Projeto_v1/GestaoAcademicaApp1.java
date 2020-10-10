@@ -19,6 +19,7 @@ public class GestaoAcademicaApp1 {
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
+        int indice;
         System.out.println("Gestão Acadêmica - Centro Universitário SENAC\n");
         
         CentroUniversitario senac = new CentroUniversitario("Senac");
