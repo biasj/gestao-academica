@@ -23,6 +23,7 @@ public class GestaoAcademicaApp1 {
         
         CentroUniversitario senac = new CentroUniversitario("Senac");
         senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
+        
     }
     
     // 3 - consulta de informações de estudantes por disciplina
