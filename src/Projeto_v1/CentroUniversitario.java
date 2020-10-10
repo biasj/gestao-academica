@@ -63,6 +63,34 @@ public class CentroUniversitario {
         String linhaDisciplina[];
         String linha;
         
+        // LEITURA DE ESTUDANTES
+        try {
+        // se r!= null significa que r está guardando referência do arquivo físico
+            if(bufferEstudante != null) {
+                linha = bufferEstudante.readLine();
+                while(linha != null) {
+                    linhaEstudante = linha.split(":");
+                    
+                    // cria novo objeto de disciplina baseado na leitura do arquivo
+                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaEstudante[0]), linhaEstudante[1], linhaEstudante[2]);
+                    // adiciona o novo objeto ao array de estudantes da classe
+                    estudantes.add(novoEstudante);
+                    
+                    // imprime para verificar se está tudo certo (RETIRAR)
+                    System.out.println("id: " + linhaEstudante[0] + " nome: " + linhaEstudante[1] + " email: " + linhaEstudante[2]);
+                    
+                    // lê a próxima linha
+                    linha = bufferEstudante.readLine();
+                }
+                
+            }
+            // encerra comunicação entre arquivo lógico e físico, não encerra arquivo físico
+            bufferEstudante.close();
+            
+        } catch(Exception e) {
+            System.exit(-1);
+        }    
+        
         // LEITURA DE DISCIPLINAS
         try {
             
@@ -95,7 +123,6 @@ public class CentroUniversitario {
             Scanner scMatriculas = new Scanner(farqMatriculas);
             
             Matricula novaMatricula;
-            Disciplina objDisciplina;
             
             // enquanto houver linha seguinte
             while(scMatriculas.hasNextLine()){
@@ -104,19 +131,30 @@ public class CentroUniversitario {
                 // divide a linha por : e coloca dentro do vetor
                 linhaMatricula = linha.split(":");
                 long idEstudante = Long.parseLong(linhaMatricula[0]);
-                String codMatricula = linhaMatricula[1];
+                String codDisciplina = linhaMatricula[1];
                
-                // não sei se entendi (VERIFICAR)
-                novaMatricula = new Matricula(null, this.getDisciplina(linhaMatricula[1]));
                 
-                // falta criar a disciplina (VERIFICAR) -> atribuir pra disciplina, atribuir pra 
+                Estudante estudante = null;
+                Disciplina disciplina = null;
+                // falta criar a disciplina (VERIFICAR) -> addMatricula (estudante), addMatricula (disciplina)
                 for(Estudante e : estudantes) {
                     // se o estudante estiver na lista
-                    if( e.getId() == idEstudante ){ 
-                        // não sei se entendi (VERIFICAR)
-                        novaMatricula = new Matricula(e, this.getDisciplina(linhaMatricula[1]));
-                        e.addMatricula(novaMatricula);
+                    if(e.getId() == idEstudante){                         
+                        estudante = e;
+                        
                     }
+                }
+                
+                for(Disciplina d: disciplinas) {
+                    if(d.getCodigo().equals(codDisciplina)) {
+                        disciplina = d;
+                    }
+                }
+                
+                if(estudante != null && disciplina != null) {
+                    novaMatricula = new Matricula(estudante, disciplina);
+                    System.out.println("ADICIONANDO MATRÍCULA");
+                    estudante.addMatricula(novaMatricula);
                 }
                 
                 
@@ -129,33 +167,7 @@ public class CentroUniversitario {
             e.printStackTrace();
         }
         
-        // LEITURA DE ESTUDANTES
-        try {
-        // se r!= null significa que r está guardando referência do arquivo físico
-            if(bufferEstudante != null) {
-                linha = bufferEstudante.readLine();
-                while(linha != null) {
-                    linhaEstudante = linha.split(":");
-                    
-                    // cria novo objeto de disciplina baseado na leitura do arquivo
-                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaEstudante[0]), linhaEstudante[1], linhaEstudante[2]);
-                    // adiciona o novo objeto ao array de estudantes da classe
-                    estudantes.add(novoEstudante);
-                    
-                    // imprime para verificar se está tudo certo (RETIRAR)
-                    System.out.println("id: " + linhaEstudante[0] + " nome: " + linhaEstudante[1] + " email: " + linhaEstudante[2]);
-                    
-                    // lê a próxima linha
-                    linha = bufferEstudante.readLine();
-                }
-                
-            }
-            // encerra comunicação entre arquivo lógico e físico, não encerra arquivo físico
-            bufferEstudante.close();
-            
-        } catch(Exception e) {
-            System.exit(-1);
-        }    
+        
     }
     
 }

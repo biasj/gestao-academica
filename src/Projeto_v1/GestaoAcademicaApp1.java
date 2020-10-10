@@ -23,6 +23,18 @@ public class GestaoAcademicaApp1 {
         
         CentroUniversitario senac = new CentroUniversitario("Senac");
         senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
+        
+        ArrayList<Matricula> matriculas = senac.getEstudantes().get(5).getMatriculas();
+        for(Matricula m: matriculas) {
+            System.out.println(m.getDisciplina());
+        }
+        
+        ArrayList<Disciplina> disciplinas = senac.getDisciplinas();
+        
+        for(Disciplina d: disciplinas) {
+            System.out.println(d.getCodigo());
+        }
+        
     }
     
     // 3 - consulta de informações de estudantes por disciplina
