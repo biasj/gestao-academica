@@ -103,10 +103,21 @@ public class CentroUniversitario {
                 linha = scMatriculas.nextLine();
                 // divide a linha por : e coloca dentro do vetor
                 linhaMatricula = linha.split(":");
-                
+                long idEstudante = Long.parseLong(linhaMatricula[0]);
+                String codMatricula = linhaMatricula[1];
+               
                 // não sei se entendi (VERIFICAR)
                 novaMatricula = new Matricula(null, this.getDisciplina(linhaMatricula[1]));
+                
                 // falta criar a disciplina (VERIFICAR) -> atribuir pra disciplina, atribuir pra 
+                for(Estudante e : estudantes) {
+                    // se o estudante estiver na lista
+                    if( e.getId() == idEstudante ){ 
+                        // não sei se entendi (VERIFICAR)
+                        novaMatricula = new Matricula(e, this.getDisciplina(linhaMatricula[1]));
+                        e.addMatricula(novaMatricula);
+                    }
+                }
                 
                 
                 // imprime para verificar se está tudo certo (RETIRAR)
