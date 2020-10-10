@@ -31,6 +31,7 @@ public class Disciplina {
     public Disciplina(String codigo, int creditos){
         this.codigo = codigo;
         this.creditos = creditos;
+        this.matriculas = new ArrayList<>();
     }
     
     public void addMatricula(Matricula matricula){
@@ -49,4 +50,11 @@ public class Disciplina {
         
         return estudantes;
     }
+
+    @Override
+    public String toString() {
+        return "Disciplina{" + "codigo=" + codigo + ", creditos=" + creditos + ", matriculas=" + matriculas + '}';
+    }
+    
+    
 }

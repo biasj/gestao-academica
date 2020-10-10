@@ -25,5 +25,5 @@ public class Matricula {
     public Estudante getEstudante() {
         return estudante;
     }
-    
+
 }
