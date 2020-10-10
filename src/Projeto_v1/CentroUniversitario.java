@@ -42,17 +42,6 @@ public class CentroUniversitario {
         this.disciplinas = new ArrayList<>();
     }
     
-    public Disciplina getDisciplina(String codigo) {
-        
-        // loop que vai localizar e atribuir o objeto à variável
-        for (int i=0; i < this.disciplinas.size(); i++){
-            if (disciplinas.get(i).getCodigo() == codigo) {
-                return disciplinas.get(i);
-            }
-        }
-        
-        return null;
-    }
 
     public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) throws FileNotFoundException {
         // reader para ler arquivos de estudantes
@@ -76,9 +65,6 @@ public class CentroUniversitario {
                     // adiciona o novo objeto ao array de estudantes da classe
                     estudantes.add(novoEstudante);
                     
-                    // imprime para verificar se está tudo certo (RETIRAR)
-                    System.out.println("id: " + linhaEstudante[0] + " nome: " + linhaEstudante[1] + " email: " + linhaEstudante[2]);
-                    
                     // lê a próxima linha
                     linha = bufferEstudante.readLine();
                 }
@@ -93,7 +79,7 @@ public class CentroUniversitario {
         
         // LEITURA DE DISCIPLINAS
         try {
-            
+            // leitura de arquivos por Scanner
             File farqDisciplinas = new File(arqDisciplinas);
             Scanner scDisciplinas = new Scanner(farqDisciplinas);
             Disciplina novaDisciplina;
@@ -109,7 +95,6 @@ public class CentroUniversitario {
                  // adiciona o novo objeto ao array de disciplina da classe CentroUniversitario
                  this.disciplinas.add(novaDisciplina);
                  
-                 System.out.println("codigo: " + linhaDisciplina[0] + " credito: " + linhaDisciplina[1]);
                  
             }
         } catch(FileNotFoundException e){
@@ -121,8 +106,7 @@ public class CentroUniversitario {
         try{
             File farqMatriculas = new File(arqMatriculas);
             Scanner scMatriculas = new Scanner(farqMatriculas);
-            
-            Matricula novaMatricula;
+           
             
             // enquanto houver linha seguinte
             while(scMatriculas.hasNextLine()){
@@ -152,14 +136,12 @@ public class CentroUniversitario {
                 }
                 
                 if(estudante != null && disciplina != null) {
-                    novaMatricula = new Matricula(estudante, disciplina);
-                    System.out.println("ADICIONANDO MATRÍCULA");
+                    Matricula novaMatricula = new Matricula(estudante, disciplina);
                     estudante.addMatricula(novaMatricula);
+                    disciplina.addMatricula(novaMatricula);
                 }
                 
                 
-                // imprime para verificar se está tudo certo (RETIRAR)
-                System.out.println("codigo: " + linhaMatricula[0] + " credito: " + linhaMatricula[1]);
                 
             }
         } catch(FileNotFoundException e){
