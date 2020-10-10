@@ -106,7 +106,7 @@ public class CentroUniversitario {
                 
                 // não sei se entendi (VERIFICAR)
                 novaMatricula = new Matricula(null, this.getDisciplina(linhaMatricula[1]));
-                // falta criar a disciplina (VERIFICAR)
+                // falta criar a disciplina (VERIFICAR) -> atribuir pra disciplina, atribuir pra 
                 
                 
                 // imprime para verificar se está tudo certo (RETIRAR)

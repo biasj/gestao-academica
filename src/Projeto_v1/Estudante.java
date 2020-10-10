@@ -24,6 +24,10 @@ public class Estudante {
         this.matriculas = new ArrayList<>();
     }
 
+    public void setMatriculas(ArrayList<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+
     public long getId() {
         return id;
     }
