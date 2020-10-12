@@ -28,16 +28,20 @@ public class GestaoAcademicaApp1 {
         do {
             indice = menuInicial();
             if (indice == 1) {
-
+                listaAlunos();
             } else {
                 if (indice == 2) {
-                    
+                   listaDisciplinas(); 
                 } else {
                     if (indice == 3) {
-                        
+                        alunosPorDisciplinas();
                     } else {
-                        if (indice != 0) {
-                            reportaErro();
+                        if (indice == 4) {
+                            disciplinasPorAlunos();
+                        } else {
+                            if (indice != 0) {
+                                reportaErro();
+                            }
                         }
                     }
                 }
@@ -72,8 +76,9 @@ public class GestaoAcademicaApp1 {
         Scanner reader = new Scanner(System.in);
         System.out.println("Informe a opção desejada:");
         System.out.println("[1] Consultar a lista de estudantes;");
-        System.out.println("[2] Listar alunos matriculados a partir de uma disciplina;");
-        System.out.println("[3] Listas disciplinas a partir de código de aluno;");
+        System.out.println("[2] Listar todas as disciplinas;");
+        System.out.println("[3] Listar alunos matriculados a partir de uma disciplina;");
+        System.out.println("[4] Listas disciplinas a partir de código de aluno;");
         System.out.println("[0] Sair do sistema;");
         indice = reader.nextInt();
         return indice;
@@ -85,6 +90,63 @@ public class GestaoAcademicaApp1 {
     
     public static void reportaErro(){
         System.out.println("Opção inválida. Tente novamente.");
+    }
+    //método para chamar a listagem de alunos e seus ids.
+    public static void listaAlunos(){
+        ArrayList<Estudante> estudantes = new ArrayList<>();
+        int cont = 0; //contador para devolver o total de alunos matriculados.
+        for(Estudante e: estudantes) {
+            e.imprimeId();
+            e.imprimeAlunos();
+            cont++;
+        }
+        System.out.println("Total de alunos: " + cont);
+
+    }
+    // método para chamar a listagem de disciplinas.
+    public static void listaDisciplinas(){
+        ArrayList<Disciplina> disciplinas = new ArrayList<>();
+        int cont = 0; //contador para devolver o total de disciplinas.
+        for (Disciplina d : disciplinas) {
+            d.imprimeCodigo();
+            cont++;
+        }
+        System.out.println("Total de disciplinas: " + cont);
+    }
+    
+    //ainda não descobri como passar o código da matrícula para imprimir apenas os alunos daquela matrícula.
+    public static void alunosPorDisciplinas(){
+        Scanner reader = new Scanner (System.in);
+        ArrayList<Disciplina> disciplinas = new ArrayList<>();
+        ArrayList<Estudante> estudantes = new ArrayList<>();
+        int cont = 0;
+        
+        System.out.println("Digite o código da disciplina: ");
+        int entrada = reader.nextInt();
+        
+        for (Disciplina d : disciplinas) { 
+            System.out.println(d.getEstudantesMatriculados());
+            
+            cont++;
+        }
+        System.out.println("Total de alunos matriculados: " + cont);
+    }
+    
+    public static void disciplinasPorAlunos(){
+        Scanner reader = new Scanner (System.in);
+        ArrayList<Disciplina> disciplinas = new ArrayList<>();
+        ArrayList<Estudante> estudantes = new ArrayList<>();
+        int cont = 0;
+        
+        System.out.println("Digite o ID do Aluno: ");
+        int entrada = reader.nextInt();
+        
+        for (Estudante e: estudantes) { 
+            System.out.println(e.getDisciplinasMatriculadas());
+            
+            cont++;
+        }
+        System.out.println("Total de créditos do aluno: " + cont);
     }
     
     
