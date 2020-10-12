@@ -20,6 +20,7 @@ public class GestaoAcademicaApp1 {
      */
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
+        int indice;
         System.out.println("Gestão Acadêmica - Centro Universitário SENAC\n");
         int indice;
         String entrada = null;
@@ -30,6 +31,7 @@ public class GestaoAcademicaApp1 {
         do {
             indice = menuInicial();
             if (indice == 1) {
+
                 listaAlunos(senac);
             } else {
                 if (indice == 2) {
@@ -46,6 +48,7 @@ public class GestaoAcademicaApp1 {
                             if (indice != 0) {
                                 reportaErro();
                             }
+
                         }
                     }
                 }
@@ -151,6 +154,7 @@ public class GestaoAcademicaApp1 {
         return entrada;
     }
     
+
     //método para obter o número do ID do aluno a ser fornecido pelo usuário.
     public static Long getNumeroEstudante(){
         long entrada;
@@ -159,5 +163,30 @@ public class GestaoAcademicaApp1 {
         entrada = reader.nextLong();
         return entrada;
     }
+
+
+    //método de impressão do menu inicial e obtenção da opção selecionada pelo usuário    
+    public static int menuInicial(){
+        int indice;
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Informe a opção desejada:");
+        System.out.println("[1] Consultar a lista de estudantes;");
+        System.out.println("[2] Listar alunos matriculados a partir de uma disciplina;");
+        System.out.println("[3] Listas disciplinas a partir de código de aluno;");
+        System.out.println("[0] Sair do sistema;");
+        indice = reader.nextInt();
+        return indice;
+    }
+    
+    //método de impressão de mensagem de término    
+    public static void termino(){
+        System.out.println("Sessão encerrada.");
+    }
+    
+    //método de impressão de mensagem de erro    
+    public static void reportaErro(){
+        System.out.println("Opção inválida. Tente novamente.");
+    }
+    
 
 }
