@@ -60,10 +60,19 @@ public class Estudante {
         
         return disciplinas;
     }
-
+    
+    
+    public void imprimeId(){
+        System.out.print(" Matrícula n. " + this.getId());
+    }
+    
+    public void imprimeAlunos(){
+        System.out.print(" | Nome: " + this.getNome());
+    }
+    
     @Override
     public String toString() {
-        return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", matriculas=" + matriculas + '}';
+        return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + "matriculas=" + matriculas + '}';
     }
     
 }

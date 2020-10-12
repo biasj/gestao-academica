@@ -51,9 +51,19 @@ public class Disciplina {
         return estudantes;
     }
 
+    public void imprimeCodigo(){
+        System.out.print(" Disciplina n. " + this.getCodigo());
+    }
+    
+    public void imprimeCredito(){
+        System.out.print(" | Créditos: " + this.getCreditos());
+    }
+    
+    
+    
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", creditos=" + creditos + ", matriculas=" + matriculas + '}';
+        return "Disciplina{" + "codigo=" + codigo + ", creditos=" + creditos + '}';
     }
     
     
