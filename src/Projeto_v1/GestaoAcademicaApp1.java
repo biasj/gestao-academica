@@ -22,6 +22,8 @@ public class GestaoAcademicaApp1 {
         // TODO code application logic here
         System.out.println("Gestão Acadêmica - Centro Universitário SENAC\n");
         int indice;
+        String entrada = null;
+        long id;
         CentroUniversitario senac = new CentroUniversitario("Senac");
         senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
         
@@ -31,13 +33,15 @@ public class GestaoAcademicaApp1 {
                 listaAlunos(senac);
             } else {
                 if (indice == 2) {
-                   listaDisciplinas(); 
+                   listaDisciplinas(senac); 
                 } else {
                     if (indice == 3) {
-                        alunosPorDisciplinas();
+                        entrada = getNumeroDisciplinas();
+                        listarEstudantes(entrada, senac);
                     } else {
                         if (indice == 4) {
-                            disciplinasPorAlunos();
+                            id = getNumeroEstudante();
+                            listarDisciplinas(id, senac);
                         } else {
                             if (indice != 0) {
                                 reportaErro();
@@ -53,23 +57,43 @@ public class GestaoAcademicaApp1 {
         }
     }
     
-    // 3 - consulta de informações de estudantes por disciplina
-    public static void listarEstudantes(String codigoDisciplina) {
-        // pegar o objeto disciplina através dos dados do CentroUniversitario e usando o getEstudantesMatriculados
-        CentroUniversitario senac = new CentroUniversitario("Senac");
-        listarEstudantes(codigoDisciplina, senac);
-    }
-    
+   //método de listagem de estudantes (item 3 do menu).
     public static void listarEstudantes(String codigoDisciplina, CentroUniversitario senac) {
         ArrayList<Disciplina> disciplinas = senac.getDisciplinas();
-        
+        int cont = 0; // contador para listagem do total de alunos matriculados em determinada disciplina.
         for(Disciplina d: disciplinas) {
             if(d.getCodigo().equals(codigoDisciplina)) {
-                System.out.println(d.getEstudantesMatriculados()); 
+                ArrayList<Estudante> estudantes = d.getEstudantesMatriculados();
+                for (Estudante e: estudantes) {
+                    System.out.print("Id do Aluno: " + e.getId());
+                    System.out.print(" | Nome do Aluno: " + e.getNome());
+                    System.out.print(" | E-mail: " + e.getEmail());
+                    System.out.println();
+                    cont++;
+                }
             }
         }
+        System.out.println("Total de alunos: " + cont); 
     }
 
+    //método de listagem de Disciplinas (item 4 do menu).
+    public static void listarDisciplinas(Long codigoAluno, CentroUniversitario senac) {
+        ArrayList<Estudante> estudantes = senac.getEstudantes();
+        int cont = 0; // contador para listagem do total de crédito de um mesmo aluno.
+        for(Estudante e: estudantes) {
+            if(e.getId()==(codigoAluno)) {
+                ArrayList<Disciplina> disciplinas = e.getDisciplinasMatriculadas();
+                for (Disciplina d: disciplinas) {
+                    System.out.print("Código da Disciplina: " + d.getCodigo()); 
+                    System.out.println(" | Crédito da Disciplina: " + d.getCreditos()); 
+                    cont = cont + d.getCreditos();
+                }
+            }
+        }
+        System.out.println("Total de créditos: " + cont); 
+    }
+    
+    
     //método de impressão do menu inicial e obtenção da opção selecionada pelo usuário    
     public static int menuInicial(){
         int indice;
@@ -84,10 +108,12 @@ public class GestaoAcademicaApp1 {
         return indice;
     }
  
+    //mensagem de término do programa.
     public static void termino(){
         System.out.println("Sessão encerrada.");
     }
     
+    //mensagem de erro caso o usuário digite uma opção inválida.
     public static void reportaErro(){
         System.out.println("Opção inválida. Tente novamente.");
     }
@@ -99,55 +125,39 @@ public class GestaoAcademicaApp1 {
             e.imprimeId();
             e.imprimeAlunos();
             cont++;
+            System.out.println();
         }
         System.out.println("Total de alunos: " + cont);
 
     }
     // método para chamar a listagem de disciplinas.
-    public static void listaDisciplinas(){
-        ArrayList<Disciplina> disciplinas = new ArrayList<>();
+    public static void listaDisciplinas(CentroUniversitario centro){
+        ArrayList<Disciplina> disciplinas = centro.getDisciplinas();
         int cont = 0; //contador para devolver o total de disciplinas.
         for (Disciplina d : disciplinas) {
             d.imprimeCodigo();
             cont++;
+            System.out.println();
         }
         System.out.println("Total de disciplinas: " + cont);
     }
     
-    //ainda não descobri como passar o código da matrícula para imprimir apenas os alunos daquela matrícula.
-    public static void alunosPorDisciplinas(){
+    //método para obter o número da disciplina a ser fornecido pelo usuário.
+    public static String getNumeroDisciplinas(){
+        String entrada;
         Scanner reader = new Scanner (System.in);
-        ArrayList<Disciplina> disciplinas = new ArrayList<>();
-        ArrayList<Estudante> estudantes = new ArrayList<>();
-        int cont = 0;
-        
         System.out.println("Digite o código da disciplina: ");
-        int entrada = reader.nextInt();
-        
-        for (Disciplina d : disciplinas) { 
-            System.out.println(d.getEstudantesMatriculados());
-            
-            cont++;
-        }
-        System.out.println("Total de alunos matriculados: " + cont);
+        entrada = reader.next();
+        return entrada;
     }
     
-    public static void disciplinasPorAlunos(){
+    //método para obter o número do ID do aluno a ser fornecido pelo usuário.
+    public static Long getNumeroEstudante(){
+        long entrada;
         Scanner reader = new Scanner (System.in);
-        ArrayList<Disciplina> disciplinas = new ArrayList<>();
-        ArrayList<Estudante> estudantes = new ArrayList<>();
-        int cont = 0;
-        
         System.out.println("Digite o ID do Aluno: ");
-        int entrada = reader.nextInt();
-        
-        for (Estudante e: estudantes) { 
-            System.out.println(e.getDisciplinasMatriculadas());
-            
-            cont++;
-        }
-        System.out.println("Total de créditos do aluno: " + cont);
+        entrada = reader.nextLong();
+        return entrada;
     }
-    
-    
+
 }

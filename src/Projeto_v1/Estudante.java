@@ -72,7 +72,7 @@ public class Estudante {
     
     @Override
     public String toString() {
-        return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", matriculas=" + matriculas + '}';
+        return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + "matriculas=" + matriculas + '}';
     }
     
 }
