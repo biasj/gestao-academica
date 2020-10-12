@@ -28,7 +28,7 @@ public class GestaoAcademicaApp1 {
         do {
             indice = menuInicial();
             if (indice == 1) {
-                listaAlunos();
+                listaAlunos(senac);
             } else {
                 if (indice == 2) {
                    listaDisciplinas(); 
@@ -92,8 +92,8 @@ public class GestaoAcademicaApp1 {
         System.out.println("Opção inválida. Tente novamente.");
     }
     //método para chamar a listagem de alunos e seus ids.
-    public static void listaAlunos(){
-        ArrayList<Estudante> estudantes = new ArrayList<>();
+    public static void listaAlunos(CentroUniversitario centro){
+        ArrayList<Estudante> estudantes = centro.getEstudantes();
         int cont = 0; //contador para devolver o total de alunos matriculados.
         for(Estudante e: estudantes) {
             e.imprimeId();
