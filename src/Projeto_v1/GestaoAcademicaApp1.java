@@ -101,6 +101,7 @@ public class GestaoAcademicaApp1 {
     public static int menuInicial(){
         int indice;
         Scanner reader = new Scanner(System.in);
+        System.out.println("");
         System.out.println("Informe a opção desejada:");
         System.out.println("[1] Consultar a lista de estudantes;");
         System.out.println("[2] Listar todas as disciplinas;");
@@ -151,6 +152,7 @@ public class GestaoAcademicaApp1 {
         Scanner reader = new Scanner (System.in);
         System.out.println("Digite o código da disciplina: ");
         entrada = reader.next();
+        entrada = entrada.toUpperCase();
         return entrada;
     }
     
