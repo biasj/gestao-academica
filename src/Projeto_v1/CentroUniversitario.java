@@ -102,7 +102,7 @@ public class CentroUniversitario {
             e.printStackTrace();
         }
         
-        // LEITURA DE MATRÍCULAS POR SCANNER -> falta relacionar com os estudantes e com as disciplinas
+        // LEITURA DE MATRÍCULAS POR SCANNER -> 
         try{
             File farqMatriculas = new File(arqMatriculas);
             Scanner scMatriculas = new Scanner(farqMatriculas);
@@ -120,7 +120,7 @@ public class CentroUniversitario {
                 
                 Estudante estudante = null;
                 Disciplina disciplina = null;
-                // falta criar a disciplina (VERIFICAR) -> addMatricula (estudante), addMatricula (disciplina)
+                
                 for(Estudante e : estudantes) {
                     // se o estudante estiver na lista
                     if(e.getId() == idEstudante){                         
@@ -135,6 +135,7 @@ public class CentroUniversitario {
                     }
                 }
                 
+                // falta criar a disciplina -> addMatricula (estudante), addMatricula (disciplina)
                 if(estudante != null && disciplina != null) {
                     Matricula novaMatricula = new Matricula(estudante, disciplina);
                     estudante.addMatricula(novaMatricula);
