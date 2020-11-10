@@ -135,7 +135,7 @@ public class CentroUniversitario {
                     }
                 }
                 
-                // falta criar a disciplina -> addMatricula (estudante), addMatricula (disciplina)
+                // falta criar a disciplina -> addMatricula (estudante), addMatricula (disciplina)  
                 if(estudante != null && disciplina != null) {
                     Matricula novaMatricula = new Matricula(estudante, disciplina);
                     estudante.addMatricula(novaMatricula);

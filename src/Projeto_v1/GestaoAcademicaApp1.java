@@ -18,46 +18,43 @@ public class GestaoAcademicaApp1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException {
-        // TODO code application logic here
-        int indice;
-        System.out.println("Gestão Acadêmica - Centro Universitário SENAC\n");
-       
-        String entrada = null;
-        long id;
+    public static void main(String[] args) throws FileNotFoundException {        
         CentroUniversitario senac = new CentroUniversitario("Senac");
         senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
-        
+       
+        interfaceGestao(senac);
+    }
+    
+    public static void interfaceGestao(CentroUniversitario centro) {
+        System.out.println("Gestão Acadêmica - Centro Universitário " + centro.getNome());
+        String entrada = null;
+        long id;
+        int indice;
         do {
             indice = menuInicial();
-            if (indice == 1) {
-
-                listaAlunos(senac);
-            } else {
-                if (indice == 2) {
-                   listaDisciplinas(senac); 
-                } else {
-                    if (indice == 3) {
-                        entrada = getNumeroDisciplinas();
-                        listarEstudantes(entrada, senac);
-                    } else {
-                        if (indice == 4) {
-                            id = getNumeroEstudante();
-                            listarDisciplinas(id, senac);
-                        } else {
-                            if (indice != 0) {
-                                reportaErro();
-                            }
-
-                        }
-                    }
-                }
+            switch(indice) {
+                case 0:
+                    termino();
+                    break;
+                case 1:
+                    listaAlunos(centro);
+                    break;
+                case 2:
+                    listaDisciplinas(centro);
+                    break;
+                case 3:
+                    entrada = getNumeroDisciplinas();
+                    listarEstudantes(entrada, centro);
+                    break;
+                case 4:
+                    id = getNumeroEstudante();
+                    listarDisciplinas(id, centro);
+                    break;
+                
+                default:
+                    reportaErro();
             }
-            
-        } while (indice != 0);
-        if (indice == 0) {
-            termino();
-        }
+        } while(indice != 0);
     }
     
    //método de listagem de estudantes (item 3 do menu).
@@ -165,9 +162,4 @@ public class GestaoAcademicaApp1 {
         entrada = reader.nextLong();
         return entrada;
     }
-
-
-
-    
-
 }
