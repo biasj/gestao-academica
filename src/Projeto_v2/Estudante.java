@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Gabriel
  */
-public class Estudante {
+public abstract class Estudante {
     private long id;
     private String nome;
     private String email;
@@ -23,6 +23,8 @@ public class Estudante {
         this.email = email;
         this.matriculas = new ArrayList<>();
     }
+    
+    public abstract int getTotalCreditos();
 
     public void setMatriculas(ArrayList<Matricula> matriculas) {
         this.matriculas = matriculas;
@@ -59,6 +61,15 @@ public class Estudante {
         }
         
         return disciplinas;
+    }
+    
+    public int getCreditosMatriculas() {
+        int total = 0;
+        for(Matricula matricula : matriculas) {
+            total += matricula.getDisciplina().getCreditos();
+        }
+        
+        return total;
     }
     
     
