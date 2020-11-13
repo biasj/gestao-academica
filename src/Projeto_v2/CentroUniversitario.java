@@ -44,24 +44,27 @@ public class CentroUniversitario {
     
 
     public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) throws FileNotFoundException {
+        String linha = null;
+        String linhaQuebrada[] = null;
+        
+        this.carregarEstudantes(arqEstudantes, linha, linhaQuebrada);
+        this.carregarDisciplinas(arqDisciplinas, linha, linhaQuebrada);
+        this.carregarMatriculas(arqMatriculas, linha, linhaQuebrada);
+    }
+    
+    public void carregarEstudantes(String arqEstudantes, String linha, String[] linhaQuebrada) throws FileNotFoundException {
         // reader para ler arquivos de estudantes
         BufferedReader bufferEstudante = new BufferedReader(new FileReader(arqEstudantes));
-        
-        String linhaEstudante[];
-        String linhaMatricula[];
-        String linhaDisciplina[];
-        String linha;
-        
         // LEITURA DE ESTUDANTES
         try {
         // se r!= null significa que r está guardando referência do arquivo físico
             if(bufferEstudante != null) {
                 linha = bufferEstudante.readLine();
                 while(linha != null) {
-                    linhaEstudante = linha.split(":");
+                    linhaQuebrada = linha.split(":");
                     
                     // cria novo objeto de disciplina baseado na leitura do arquivo
-                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaEstudante[0]), linhaEstudante[1], linhaEstudante[2]);
+                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaQuebrada[0]), linhaQuebrada[1], linhaQuebrada[2]);
                     // adiciona o novo objeto ao array de estudantes da classe
                     estudantes.add(novoEstudante);
                     
@@ -76,7 +79,9 @@ public class CentroUniversitario {
         } catch(Exception e) {
             System.exit(-1);
         }    
-        
+    }
+    
+    public void carregarDisciplinas(String arqDisciplinas, String linha, String[] linhaQuebrada) {
         // LEITURA DE DISCIPLINAS
         try {
             // leitura de arquivos por Scanner
@@ -88,36 +93,34 @@ public class CentroUniversitario {
                 
                  linha = scDisciplinas.nextLine();
                  
-                 linhaDisciplina = linha.split(":");
+                 linhaQuebrada = linha.split(":");
                  
                  // cria novo objeto de disciplina baseado na leitura do arquivo
-                 novaDisciplina = new Disciplina(linhaDisciplina[0], Integer.parseInt(linhaDisciplina[1]));
+                 novaDisciplina = new Disciplina(linhaQuebrada[0], Integer.parseInt(linhaQuebrada[1]));
                  // adiciona o novo objeto ao array de disciplina da classe CentroUniversitario
                  this.disciplinas.add(novaDisciplina);
-                 
-                 
             }
         } catch(FileNotFoundException e){
             System.out.println("Erro na abertura de arquivo de disciplinas");
             e.printStackTrace();
         }
-        
+    }
+    
+    public void carregarMatriculas(String arqMatriculas, String linha, String[] linhaQuebrada) {
         // LEITURA DE MATRÍCULAS POR SCANNER -> 
         try{
             File farqMatriculas = new File(arqMatriculas);
             Scanner scMatriculas = new Scanner(farqMatriculas);
-           
-            
+          
             // enquanto houver linha seguinte
             while(scMatriculas.hasNextLine()){
                 // le a linha
                 linha = scMatriculas.nextLine();
                 // divide a linha por : e coloca dentro do vetor
-                linhaMatricula = linha.split(":");
-                long idEstudante = Long.parseLong(linhaMatricula[0]);
-                String codDisciplina = linhaMatricula[1];
+                linhaQuebrada = linha.split(":");
+                long idEstudante = Long.parseLong(linhaQuebrada[0]);
+                String codDisciplina = linhaQuebrada[1];
                
-                
                 Estudante estudante = null;
                 Disciplina disciplina = null;
                 
@@ -125,7 +128,6 @@ public class CentroUniversitario {
                     // se o estudante estiver na lista
                     if(e.getId() == idEstudante){                         
                         estudante = e;
-                        
                     }
                 }
                 
@@ -141,16 +143,12 @@ public class CentroUniversitario {
                     estudante.addMatricula(novaMatricula);
                     disciplina.addMatricula(novaMatricula);
                 }
-                
-                
-                
+  
             }
         } catch(FileNotFoundException e){
             System.out.println("Erro na abertura de arquivo de Matriculas.");
             e.printStackTrace();
         }
-        
-        
     }
     
 }

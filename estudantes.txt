@@ -8,3 +8,13 @@
 123417:Bruna da Silva:brunasilva@gmail.com
 123418:Ana Gabriela:anagabi@gmail.com
 123419:Heitor:heitor@senacsp.edu.br
+123420:Mariana Rodrigues:mariana@gmail.com
+123421:Sammia Reis:sammia@gmail.com
+123422:Matheus Yuji:matheus.y@uol.com
+123423:Leticia Hokama:lele@hotmail.com
+123424:Natalia Mayumi:nataliam@gmail.com
+123425:Giovanna da Silva:gigik@outlook.com
+123426:Marcella Garcia:marcella@gmail.com
+123427:Gabrielle Lopes:gabilopes@gmail.com
+123428:Joao Vitor:jvmc@gmail.com
+123429:Hector Henrique:hh@senacsp.edu.br

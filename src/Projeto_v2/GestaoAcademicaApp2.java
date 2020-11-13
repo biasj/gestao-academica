@@ -25,6 +25,23 @@ public class GestaoAcademicaApp2 {
         interfaceGestao(senac);
     }
     
+    //método de impressão do menu inicial e obtenção da opção selecionada pelo usuário    
+    public static int menuInicial(){
+        int indice;
+        Scanner reader = new Scanner(System.in);
+        System.out.println("");
+        System.out.println("Informe a opção desejada:");
+        System.out.println("[1] Consultar a lista de estudantes;");
+        System.out.println("[2] Listar todas as disciplinas;");
+        System.out.println("[3] Listar alunos matriculados a partir de uma disciplina;");
+        System.out.println("[4] Listas disciplinas a partir de código de aluno;");
+        System.out.println("[0] Sair do sistema;");
+        System.out.print("Escolha: ");
+        indice = reader.nextInt();
+        System.out.println("");
+        return indice;
+    }
+    
     public static void interfaceGestao(CentroUniversitario centro) {
         System.out.println("Gestão Acadêmica - Centro Universitário " + centro.getNome());
         String entrada = null;
@@ -57,7 +74,32 @@ public class GestaoAcademicaApp2 {
         } while(indice != 0);
     }
     
-   //método de listagem de estudantes (item 3 do menu).
+    // [1] método para chamar a listagem de alunos e seus ids.
+    public static void listaAlunos(CentroUniversitario centro){
+        ArrayList<Estudante> estudantes = centro.getEstudantes();
+        int cont = 0; //contador para devolver o total de alunos matriculados.
+        for(Estudante e: estudantes) {
+            e.imprimeId();
+            e.imprimeAlunos();
+            cont++;
+            System.out.println();
+        }
+        System.out.println("Total de alunos: " + cont);
+
+    }
+    // [2] método para chamar a listagem de disciplinas.
+    public static void listaDisciplinas(CentroUniversitario centro){
+        ArrayList<Disciplina> disciplinas = centro.getDisciplinas();
+        int cont = 0; //contador para devolver o total de disciplinas.
+        for (Disciplina d : disciplinas) {
+            d.imprimeCodigo();
+            cont++;
+            System.out.println();
+        }
+        System.out.println("Total de disciplinas: " + cont);
+    }
+    
+   // [3] método de listagem de estudantes.
     public static void listarEstudantes(String codigoDisciplina, CentroUniversitario senac) {
         ArrayList<Disciplina> disciplinas = senac.getDisciplinas();
         int cont = 0; // contador para listagem do total de alunos matriculados em determinada disciplina.
@@ -75,8 +117,18 @@ public class GestaoAcademicaApp2 {
         }
         System.out.println("Total de alunos: " + cont); 
     }
+     
+    // método para obter o número da disciplina a ser fornecido pelo usuário.
+    public static String getNumeroDisciplinas(){
+        String entrada;
+        Scanner reader = new Scanner (System.in);
+        System.out.print("Digite o código da disciplina: ");
+        entrada = reader.next();
+        entrada = entrada.toUpperCase();
+        return entrada;
+    }
 
-    //método de listagem de Disciplinas (item 4 do menu).
+    // [4] método de listagem de Disciplinas (item 4 do menu).
     public static void listarDisciplinas(Long codigoAluno, CentroUniversitario senac) {
         ArrayList<Estudante> estudantes = senac.getEstudantes();
         int cont = 0; // contador para listagem do total de crédito de um mesmo aluno.
@@ -92,23 +144,16 @@ public class GestaoAcademicaApp2 {
         }
         System.out.println("Total de créditos: " + cont); 
     }
-    
-    
-    //método de impressão do menu inicial e obtenção da opção selecionada pelo usuário    
-    public static int menuInicial(){
-        int indice;
-        Scanner reader = new Scanner(System.in);
-        System.out.println("");
-        System.out.println("Informe a opção desejada:");
-        System.out.println("[1] Consultar a lista de estudantes;");
-        System.out.println("[2] Listar todas as disciplinas;");
-        System.out.println("[3] Listar alunos matriculados a partir de uma disciplina;");
-        System.out.println("[4] Listas disciplinas a partir de código de aluno;");
-        System.out.println("[0] Sair do sistema;");
-        indice = reader.nextInt();
-        return indice;
+
+    //método para obter o número do ID do aluno a ser fornecido pelo usuário.
+    public static Long getNumeroEstudante(){
+        long entrada;
+        Scanner reader = new Scanner (System.in);
+        System.out.print("Digite o ID do Aluno: ");
+        entrada = reader.nextLong();
+        return entrada;
     }
- 
+    
     //mensagem de término do programa.
     public static void termino(){
         System.out.println("Sessão encerrada.");
@@ -118,48 +163,5 @@ public class GestaoAcademicaApp2 {
     public static void reportaErro(){
         System.out.println("Opção inválida. Tente novamente.");
     }
-    //método para chamar a listagem de alunos e seus ids.
-    public static void listaAlunos(CentroUniversitario centro){
-        ArrayList<Estudante> estudantes = centro.getEstudantes();
-        int cont = 0; //contador para devolver o total de alunos matriculados.
-        for(Estudante e: estudantes) {
-            e.imprimeId();
-            e.imprimeAlunos();
-            cont++;
-            System.out.println();
-        }
-        System.out.println("Total de alunos: " + cont);
-
-    }
-    // método para chamar a listagem de disciplinas.
-    public static void listaDisciplinas(CentroUniversitario centro){
-        ArrayList<Disciplina> disciplinas = centro.getDisciplinas();
-        int cont = 0; //contador para devolver o total de disciplinas.
-        for (Disciplina d : disciplinas) {
-            d.imprimeCodigo();
-            cont++;
-            System.out.println();
-        }
-        System.out.println("Total de disciplinas: " + cont);
-    }
     
-    //método para obter o número da disciplina a ser fornecido pelo usuário.
-    public static String getNumeroDisciplinas(){
-        String entrada;
-        Scanner reader = new Scanner (System.in);
-        System.out.println("Digite o código da disciplina: ");
-        entrada = reader.next();
-        entrada = entrada.toUpperCase();
-        return entrada;
-    }
-    
-
-    //método para obter o número do ID do aluno a ser fornecido pelo usuário.
-    public static Long getNumeroEstudante(){
-        long entrada;
-        Scanner reader = new Scanner (System.in);
-        System.out.println("Digite o ID do Aluno: ");
-        entrada = reader.nextLong();
-        return entrada;
-    }
 }
