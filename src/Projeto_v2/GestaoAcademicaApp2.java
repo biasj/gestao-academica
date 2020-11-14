@@ -20,7 +20,7 @@ public class GestaoAcademicaApp2 {
      */
     public static void main(String[] args) throws FileNotFoundException {        
         CentroUniversitario senac = new CentroUniversitario("Senac");
-        senac.carregarDados("disciplinas.txt", "estudantes.txt", "matriculas.txt");
+        senac.carregarDados("disciplinas.txt", "estudantes2.txt", "matriculas.txt");
        
         interfaceGestao(senac);
     }
@@ -76,11 +76,28 @@ public class GestaoAcademicaApp2 {
     
     // [1] método para chamar a listagem de alunos e seus ids.
     public static void listaAlunos(CentroUniversitario centro){
-        ArrayList<Estudante> estudantes = centro.getEstudantes();
+        
+        ArrayList<Object> estudantes = centro.getEstudantes();
+        EstudanteGrad estudanteGrad;
+        EstudantePos estudantePos;
+        
         int cont = 0; //contador para devolver o total de alunos matriculados.
-        for(Estudante e: estudantes) {
-            e.imprimeId();
-            e.imprimeAlunos();
+        for(Object e: estudantes) {
+            
+            if (e instanceof EstudanteGrad) {
+                
+                estudanteGrad = (EstudanteGrad) e;
+                estudanteGrad.imprimeId();
+                estudanteGrad.imprimeAlunos();
+                
+            } else if (e instanceof EstudantePos) {
+                
+                estudantePos = (EstudantePos) e;
+                estudantePos.imprimeId();
+                estudantePos.imprimeAlunos();
+                
+            }
+            
             cont++;
             System.out.println();
         }
@@ -130,6 +147,7 @@ public class GestaoAcademicaApp2 {
 
     // [4] método de listagem de Disciplinas (item 4 do menu).
     public static void listarDisciplinas(Long codigoAluno, CentroUniversitario senac) {
+        /*
         ArrayList<Estudante> estudantes = senac.getEstudantes();
         int cont = 0; // contador para listagem do total de crédito de um mesmo aluno.
         for(Estudante e: estudantes) {
@@ -143,6 +161,7 @@ public class GestaoAcademicaApp2 {
             }
         }
         System.out.println("Total de créditos: " + cont); 
+        */
     }
 
     //método para obter o número do ID do aluno a ser fornecido pelo usuário.

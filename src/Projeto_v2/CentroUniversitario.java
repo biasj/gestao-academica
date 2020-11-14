@@ -20,14 +20,14 @@ import java.util.Scanner;
 public class CentroUniversitario {
 
     private String nome;
-    private ArrayList<Estudante> estudantes;
+    private ArrayList<Object> estudantes;
     private ArrayList<Disciplina> disciplinas;
 
     public String getNome() {
         return nome;
     }
 
-    public ArrayList<Estudante> getEstudantes() {
+    public ArrayList<Object> getEstudantes() {
         return estudantes;
     }
 
@@ -63,10 +63,20 @@ public class CentroUniversitario {
                 while(linha != null) {
                     linhaQuebrada = linha.split(":");
                     
-                    // cria novo objeto de disciplina baseado na leitura do arquivo
-                    Estudante novoEstudante = new Estudante(Long.parseLong(linhaQuebrada[0]), linhaQuebrada[1], linhaQuebrada[2]);
-                    // adiciona o novo objeto ao array de estudantes da classe
-                    estudantes.add(novoEstudante);
+                    // Se Graduação
+                    if(linhaQuebrada[3].equals("GRAD")){
+                        EstudanteGrad novoEstudante = new EstudanteGrad(Long.parseLong(linhaQuebrada[0]),linhaQuebrada[1], linhaQuebrada[2], Integer.parseInt(linhaQuebrada[4]));
+                        // adiciona o novo objeto ao array de estudantes da classe
+                        estudantes.add(novoEstudante);
+                    } 
+                    // Senão se Pós-Graduação
+                    else if(linhaQuebrada[3].equals("POS")){
+                        EstudantePos novoEstudante = new EstudantePos(Long.parseLong(linhaQuebrada[0]), linhaQuebrada[1], linhaQuebrada[2], linhaQuebrada[4], linhaQuebrada[5]);
+                        // adiciona o novo objeto ao array de estudantes da classe
+                        estudantes.add(novoEstudante);
+                    }
+                    
+                    
                     
                     // lê a próxima linha
                     linha = bufferEstudante.readLine();
@@ -111,7 +121,9 @@ public class CentroUniversitario {
         try{
             File farqMatriculas = new File(arqMatriculas);
             Scanner scMatriculas = new Scanner(farqMatriculas);
-          
+            Estudante estudante, estudanteAux;
+            Disciplina disciplina;
+         
             // enquanto houver linha seguinte
             while(scMatriculas.hasNextLine()){
                 // le a linha
@@ -120,14 +132,17 @@ public class CentroUniversitario {
                 linhaQuebrada = linha.split(":");
                 long idEstudante = Long.parseLong(linhaQuebrada[0]);
                 String codDisciplina = linhaQuebrada[1];
-               
-                Estudante estudante = null;
-                Disciplina disciplina = null;
                 
-                for(Estudante e : estudantes) {
+                estudante = null;
+                disciplina = null;
+                
+                for(Object e : estudantes) {
+                   
+                    estudanteAux = (Estudante) e;
+                   
                     // se o estudante estiver na lista
-                    if(e.getId() == idEstudante){                         
-                        estudante = e;
+                    if(estudante.getId() == idEstudante){                         
+                        estudante = estudanteAux;
                     }
                 }
                 
