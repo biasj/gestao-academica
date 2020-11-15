@@ -89,6 +89,9 @@ public class GestaoAcademicaApp2 {
                 estudanteGrad = (EstudanteGrad) e;
                 estudanteGrad.imprimeId();
                 estudanteGrad.imprimeAlunos();
+                estudanteGrad.imprimeTotalCreditos();
+                estudanteGrad.imprimeHorasAtividades();
+                
                 
             } else if (e instanceof EstudantePos) {
                 
