@@ -1,0 +1,10 @@
+123410:Gabriel da Silva:gabriel@gmail.com:GRAD:30
+123411:Marcelo Francisco:marcelo@gmail.com:POS:Gestão de Negócios:José Carlos
+123412:Rodrigo Mateus:rodrigo@uol.com:POS:Engenharia de Dados:Maria Marcondes
+123413:Debora Ribeiro:debora@hotmail.com:GRAD:20
+123414:Bruna Oliveira:bruna@gmail.com:GRAD:50
+123415:Jessica Rodrigues:jessica@outlook.com:POS:Teste automatizado:Carlos Torres
+123416:Felipe dos Santos:felipe@gmail.com:GRAD:40
+123417:Bruna da Silva:brunasilva@gmail.com:POS:Controladoria:Marcos Vinicius
+123418:Ana Gabriela:anagabi@gmail.com:POS:Engenharia de Dados:Maria Marcondes
+123419:Heitor:heitor@senacsp.edu.br:GRAD:25

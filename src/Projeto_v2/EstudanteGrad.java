@@ -32,6 +32,14 @@ public class EstudanteGrad extends Estudante {
         return horasAtividades + super.getCreditosMatriculas();
     }
 
+    public void imprimeTotalCreditos() {
+    	System.out.print(" | Total de créditos: " + this.getTotalCreditos());
+    }
+    
+    public void imprimeHorasAtividades() {
+    	System.out.print(" | Horas de atividades complementares: " + this.getHorasAtividades());
+    }
+    
     @Override
     public String toString() {
         return "EstudanteGrad: " + "nome: " + super.getNome() + ", horasAtividades: " + horasAtividades + '}';

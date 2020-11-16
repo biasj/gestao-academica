@@ -81,6 +81,8 @@ public abstract class Estudante {
         System.out.print(" | Nome: " + this.getNome());
     }
     
+    
+    
     @Override
     public String toString() {
         return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + "matriculas=" + matriculas + '}';
