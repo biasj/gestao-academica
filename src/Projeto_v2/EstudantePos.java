@@ -45,4 +45,9 @@ public class EstudantePos extends Estudante {
         return "EstudantePos: " + "nome: " + super.getNome() + ", tema: " + tema + ", orientador: " + orientador + '}';
     }
     
+    public void addMatricula(Matricula matricula){
+        this.matriculas.add(matricula);
+        
+    }
+    
 }

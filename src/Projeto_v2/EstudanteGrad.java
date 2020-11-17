@@ -17,8 +17,10 @@ public class EstudanteGrad extends Estudante {
     public EstudanteGrad(long id, String nome, String email, int horasAtividades) {
         super(id, nome, email);
         this.horasAtividades = horasAtividades;
+        this.creditosTotais = horasAtividades;
     }
-
+    
+    
     public int getHorasAtividades() {
         return horasAtividades;
     }
@@ -28,6 +30,14 @@ public class EstudanteGrad extends Estudante {
     }
 
     @Override
+    
+    public void addMatricula(Matricula matricula){
+        this.matriculas.add(matricula);
+        
+        this.creditosTotais = this.creditosTotais + matricula.getDisciplina().getCreditos();
+        
+    }
+    
     public int getTotalCreditos() {
         return horasAtividades + super.getCreditosMatriculas();
     }

@@ -10,10 +10,10 @@ package Projeto_v2;
  * @author Gabriel
  */
 public class Matricula {
-    private Estudante estudante;
+    private Object estudante;
     private Disciplina disciplina;
     
-    public Matricula(Estudante estudante, Disciplina disciplina){
+    public Matricula(Object estudante, Disciplina disciplina){
         this.estudante = estudante;
         this.disciplina = disciplina;
     }
@@ -22,7 +22,7 @@ public class Matricula {
         return disciplina;
     }
 
-    public Estudante getEstudante() {
+    public Object getEstudante() {
         return estudante;
     }
 

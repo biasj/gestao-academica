@@ -38,9 +38,9 @@ public class Disciplina {
         this.matriculas.add(matricula);
     }
     
-    public ArrayList<Estudante> getEstudantesMatriculados(){
+    public ArrayList<Object> getEstudantesMatriculados(){
         
-        ArrayList<Estudante> estudantes;
+        ArrayList<Object> estudantes;
         
         estudantes = new ArrayList<>();
         

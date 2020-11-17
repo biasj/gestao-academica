@@ -15,7 +15,9 @@ public abstract class Estudante {
     private long id;
     private String nome;
     private String email;
-    private ArrayList<Matricula> matriculas;
+    public ArrayList<Matricula> matriculas;
+    public int creditosTotais;
+    public int creditosDisciplinas;
     
     public Estudante(long id, String nome, String email){
         this.id = id;
