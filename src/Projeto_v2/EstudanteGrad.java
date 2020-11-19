@@ -18,7 +18,7 @@ public class EstudanteGrad extends Estudante {
         super(id, nome, email);
         this.horasAtividades = horasAtividades;
     }
-
+    
     public int getHorasAtividades() {
         return horasAtividades;
     }
@@ -26,23 +26,16 @@ public class EstudanteGrad extends Estudante {
     public void setHorasAtividades(int horasAtividades) {
         this.horasAtividades = horasAtividades;
     }
-
+        
     @Override
     public int getTotalCreditos() {
         return horasAtividades + super.getCreditosMatriculas();
     }
-
-    public void imprimeTotalCreditos() {
-    	System.out.print(" | Total de créditos: " + this.getTotalCreditos());
-    }
-    
-    public void imprimeHorasAtividades() {
-    	System.out.print(" | Horas de atividades complementares: " + this.getHorasAtividades());
-    }
     
     @Override
     public String toString() {
-        return "EstudanteGrad: " + "nome: " + super.getNome() + ", horasAtividades: " + horasAtividades + '}';
+        return "\nGraduação\n" + "Nome: " + nome + "\nID: " + id + "\nE-mail: " + email + "\nCréditos: " 
+                + getTotalCreditos() + "\nAtiv. Complementares: " + getHorasAtividades();
     }
     
 }

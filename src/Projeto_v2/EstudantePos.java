@@ -5,6 +5,8 @@
  */
 package Projeto_v2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author beatrizsato
@@ -42,7 +44,8 @@ public class EstudantePos extends Estudante {
 
     @Override
     public String toString() {
-        return "EstudantePos: " + "nome: " + super.getNome() + ", tema: " + tema + ", orientador: " + orientador + '}';
+        return "\nPós Graduação\n" + "Nome: " + nome + "\nID: " + id + "\nE-mail: " + email + 
+                "\nCréditos: " + getTotalCreditos() + "\nTema: " + tema + "\nOrientador: " + orientador;
     }
     
 }

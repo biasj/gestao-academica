@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * @author Gabriel
  */
 public abstract class Estudante {
-    private long id;
-    private String nome;
-    private String email;
-    private ArrayList<Matricula> matriculas;
+    protected long id;
+    protected String nome;
+    protected String email;
+    protected ArrayList<Matricula> matriculas;
     
     public Estudante(long id, String nome, String email){
         this.id = id;
@@ -51,10 +51,7 @@ public abstract class Estudante {
     }
     
     public ArrayList<Disciplina> getDisciplinasMatriculadas(){
-        
-        ArrayList<Disciplina> disciplinas;
-        
-        disciplinas = new ArrayList<>();
+        ArrayList<Disciplina> disciplinas = new ArrayList<>();
         
         for (int i = 0 ; i < matriculas.size(); i++) {
             disciplinas.add(matriculas.get(i).getDisciplina());
@@ -68,24 +65,7 @@ public abstract class Estudante {
         for(Matricula matricula : matriculas) {
             total += matricula.getDisciplina().getCreditos();
         }
-        
         return total;
     }
-    
-    
-    public void imprimeId(){
-        System.out.print(" Matrícula n. " + this.getId());
-    }
-    
-    public void imprimeAlunos(){
-        System.out.print(" | Nome: " + this.getNome());
-    }
-    
-    
-    
-    @Override
-    public String toString() {
-        return "Estudante{" + "id=" + id + ", nome=" + nome + ", email=" + email + "matriculas=" + matriculas + '}';
-    }
-    
+
 }
