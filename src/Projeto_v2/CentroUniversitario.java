@@ -20,19 +20,11 @@ import java.util.Scanner;
 public class CentroUniversitario {
 
     private String nome;
-    private ArrayList<Object> estudantes;
+    private ArrayList<Estudante> estudantes;
     private ArrayList<Disciplina> disciplinas;
 
     public String getNome() {
         return nome;
-    }
-
-    public ArrayList<Object> getEstudantes() {
-        return estudantes;
-    }
-
-    public ArrayList<Disciplina> getDisciplinas() {
-        return disciplinas;
     }
 
     public CentroUniversitario(String nome) {
@@ -41,6 +33,15 @@ public class CentroUniversitario {
         this.estudantes = new ArrayList<>();
         this.disciplinas = new ArrayList<>();
     }
+    
+    public ArrayList<Estudante> getEstudantes() {
+        return estudantes;
+    }
+
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
 
     public void carregarDados(String arqDisciplinas, String arqEstudantes, String arqMatriculas) throws FileNotFoundException {
 
@@ -121,9 +122,7 @@ public class CentroUniversitario {
             Scanner scMatriculas = new Scanner(farqMatriculas);
 
             Disciplina disciplina;
-            
-            Estudante estudanteAux;
-            Object estudante;
+            Estudante estudante;
 
             long idEstudante;
             String codDisciplina;
@@ -141,19 +140,11 @@ public class CentroUniversitario {
 
                 disciplina = null;
                 estudante = null;
-                estudanteAux = null;
 
-                for (Object e : estudantes) {
-
-                    estudanteAux = (Estudante) e;
-                    
-                    if(estudanteAux.getId() == idEstudante){
-
+                for (Estudante e : estudantes) {
+                    if(e.getId() == idEstudante){
                         estudante = e;
-
                     }
-
-                    
                 }
 
                 for (Disciplina d : disciplinas) {
@@ -162,15 +153,12 @@ public class CentroUniversitario {
                     }
                 }
 
-                // falta criar a disciplina -> addMatricula (estudante), addMatricula (disciplina)  
+                // cria a matricula -> addMatricula (estudante), addMatricula (disciplina)  
                 if (estudante != null && disciplina != null) {
-                    
                     Matricula novaMatricula = new Matricula(estudante, disciplina);
                     
-                    estudanteAux.addMatricula(novaMatricula);
-                    
+                    estudante.addMatricula(novaMatricula);
                     disciplina.addMatricula(novaMatricula);
-
                 }
 
             }

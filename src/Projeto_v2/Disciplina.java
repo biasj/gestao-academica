@@ -16,6 +16,12 @@ public class Disciplina {
     private int creditos;
     private ArrayList<Matricula> matriculas;
 
+    public Disciplina(String codigo, int creditos){
+        this.codigo = codigo;
+        this.creditos = creditos;
+        this.matriculas = new ArrayList<>();
+    }
+    
     public String getCodigo() {
         return codigo;
     }
@@ -27,43 +33,29 @@ public class Disciplina {
     public ArrayList<Matricula> getMatriculas() {
         return matriculas;
     }
-    
-    public Disciplina(String codigo, int creditos){
-        this.codigo = codigo;
-        this.creditos = creditos;
-        this.matriculas = new ArrayList<>();
-    }
-    
+
     public void addMatricula(Matricula matricula){
         this.matriculas.add(matricula);
     }
     
-    public ArrayList<Object> getEstudantesMatriculados(){
+    public ArrayList<Estudante> getEstudantesMatriculados(){
         
-        ArrayList<Object> estudantes;
-        
-        estudantes = new ArrayList<>();
+        ArrayList<Estudante> estudantes = new ArrayList<>();
         
         for(int i = 0; i < matriculas.size(); i++){
-            estudantes.add(matriculas.get(i).getEstudante());
+            estudantes.add((Estudante) matriculas.get(i).getEstudante());
         }
         
         return estudantes;
     }
 
     public void imprimeCodigo(){
-        System.out.print(" Disciplina n. " + this.getCodigo());
+        System.out.println(" Disciplina n. " + this.getCodigo());
     }
-    
-    public void imprimeCredito(){
-        System.out.print(" | Créditos: " + this.getCreditos());
-    }
-    
-    
     
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", creditos=" + creditos + '}';
+        return "\nDisciplina \n" + "Código: " + codigo + "\nCréditos: " + creditos +"\n";
     }
     
     

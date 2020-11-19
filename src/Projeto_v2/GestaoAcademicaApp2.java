@@ -19,7 +19,7 @@ public class GestaoAcademicaApp2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {
-        CentroUniversitario senac = new CentroUniversitario("Senac");
+        CentroUniversitario senac = new CentroUniversitario("Senac v2");
         senac.carregarDados("disciplinas.txt", "estudantes2.txt", "matriculas.txt");
 
         interfaceGestao(senac);
@@ -29,8 +29,7 @@ public class GestaoAcademicaApp2 {
     public static int menuInicial() {
         int indice;
         Scanner reader = new Scanner(System.in);
-        System.out.println("");
-        System.out.println("Informe a opção desejada:");
+        System.out.println("\nInforme a opção desejada:");
         System.out.println("[1] Consultar a lista de estudantes;");
         System.out.println("[2] Listar todas as disciplinas;");
         System.out.println("[3] Listar alunos matriculados a partir de uma disciplina;");
@@ -77,33 +76,14 @@ public class GestaoAcademicaApp2 {
     // [1] método para chamar a listagem de alunos e seus ids.
     public static void listaAlunos(CentroUniversitario centro) {
 
-        ArrayList<Object> estudantes = centro.getEstudantes();
-        EstudanteGrad estudanteGrad;
-        EstudantePos estudantePos;
+        ArrayList<Estudante> estudantes = centro.getEstudantes();
 
         int cont = 0; //contador para devolver o total de alunos matriculados.
-        for (Object e : estudantes) {
-
-            if (e instanceof EstudanteGrad) {
-
-                estudanteGrad = (EstudanteGrad) e;
-                estudanteGrad.imprimeId();
-                estudanteGrad.imprimeAlunos();
-                estudanteGrad.imprimeTotalCreditos();
-                estudanteGrad.imprimeHorasAtividades();
-
-            } else if (e instanceof EstudantePos) {
-
-                estudantePos = (EstudantePos) e;
-                estudantePos.imprimeId();
-                estudantePos.imprimeAlunos();
-
-            }
-
+        for (Estudante e : estudantes) {
+            System.out.println(e);
             cont++;
-            System.out.println();
         }
-        System.out.println("Total de alunos: " + cont);
+        System.out.println("\nTotal de alunos: " + cont);
 
     }
 
@@ -114,57 +94,30 @@ public class GestaoAcademicaApp2 {
         for (Disciplina d : disciplinas) {
             d.imprimeCodigo();
             cont++;
-            System.out.println();
         }
-        System.out.println("Total de disciplinas: " + cont);
+        System.out.println("\nTotal de disciplinas: " + cont);
     }
 
     // [3] método de listagem de estudantes.
     public static void listarEstudantes(String codigoDisciplina, CentroUniversitario senac) {
-
         ArrayList<Disciplina> disciplinas = senac.getDisciplinas();
-        EstudanteGrad estudanteGrad;
-        EstudantePos estudantePos;
 
         int cont = 0; // contador para listagem do total de alunos matriculados em determinada disciplina.
 
         for (Disciplina d : disciplinas) {
 
             if (d.getCodigo().equals(codigoDisciplina)) {
-
-                ArrayList<Object> estudantes = d.getEstudantesMatriculados();
-
-                for (Object e : estudantes) {
-
-                    if (e instanceof EstudanteGrad) {
-
-                        estudanteGrad = (EstudanteGrad) e;
-                        estudanteGrad.imprimeId();
-                        estudanteGrad.imprimeAlunos();
-                        estudanteGrad.imprimeTotalCreditos();
-                        estudanteGrad.imprimeHorasAtividades();
-
-                    } else if (e instanceof EstudantePos) {
-
-                        estudantePos = (EstudantePos) e;
-                        estudantePos.imprimeId();
-                        estudantePos.imprimeAlunos();
-
-                    }
-
-                    System.out.print("Id do Aluno: " + e.getId());
-                    System.out.print(" | Nome do Aluno: " + e.getNome());
-                    System.out.print(" | E-mail: " + e.getEmail());
-                    System.out.println();
+                ArrayList<Estudante> estudantes = d.getEstudantesMatriculados();
+                
+                for (Estudante e : estudantes) {
+                    System.out.println(e);
                     cont++;
-
                 }
-
             }
-
+            
         }
 
-        System.out.println("Total de alunos: " + cont);
+        System.out.println("\nTotal de alunos: " + cont);
     }
 
     // método para obter o número da disciplina a ser fornecido pelo usuário.
@@ -179,21 +132,18 @@ public class GestaoAcademicaApp2 {
 
     // [4] método de listagem de Disciplinas (item 4 do menu).
     public static void listarDisciplinas(Long codigoAluno, CentroUniversitario senac) {
-        /*
         ArrayList<Estudante> estudantes = senac.getEstudantes();
         int cont = 0; // contador para listagem do total de crédito de um mesmo aluno.
         for(Estudante e: estudantes) {
-            if(e.getId()==(codigoAluno)) {
+            if(e.getId() == codigoAluno) {
                 ArrayList<Disciplina> disciplinas = e.getDisciplinasMatriculadas();
                 for (Disciplina d: disciplinas) {
-                    System.out.print("Código da Disciplina: " + d.getCodigo()); 
-                    System.out.println(" | Crédito da Disciplina: " + d.getCreditos()); 
+                    System.out.println(d);
                     cont = cont + d.getCreditos();
                 }
             }
         }
-        System.out.println("Total de créditos: " + cont); 
-         */
+        System.out.println("\nTotal de créditos: " + cont); 
     }
 
     //método para obter o número do ID do aluno a ser fornecido pelo usuário.
@@ -204,7 +154,7 @@ public class GestaoAcademicaApp2 {
         entrada = reader.nextLong();
         return entrada;
     }
-
+    
     //mensagem de término do programa.
     public static void termino() {
         System.out.println("Sessão encerrada.");
