@@ -6,8 +6,11 @@ package Projeto_v2;
  * and open the template in the editor.
  */
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.junit.Assert;
@@ -20,88 +23,24 @@ import static org.junit.Assert.*;
  */
 public class Centro_UniversitarioTestV2 {
     
-    private final CentroUniversitario centro_universitario;
-    private final String nomeCentro_UniversitarioEsperado;
-    private String[][] disciplinasArray;
-    private String[][] estudantesArray;
-    private int[] matriculasPorEstudante;
-    private int[] matriculasPorDisciplina;
-    private String[][] matriculasArray;
-
+    private final CentroUniversitario centroUniversitario;
+    private final String nomeCentro_UniversitarioEsperado = "Senac";
+    private final int[] matriculasPorEstudante = {2,3,2,2,2,2,2,2,5,3};
+    private final int[] matriculasPorDisciplina = {0,1,7,2,1,1,2,4,1,6};
+    private List<Matricula> matriculasArray;
+    
     public Centro_UniversitarioTestV2() throws FileNotFoundException {
-        String testeId = randomString("abcde", 10);
-        String nomeArquivoDisciplinas = "disciplinas-" + testeId + ".txt";
-        String nomeArquivoEstudantes = "estudantes-" + testeId + ".txt";
-        String nomeArquivoMatriculas = "matriculas-" + testeId + ".txt";
 
-        criarArquivoEstudantes(nomeArquivoEstudantes);
-        criarArquivoDisciplinas(nomeArquivoDisciplinas);
-        criarArquivoMatriculas(nomeArquivoMatriculas);
-
-        nomeCentro_UniversitarioEsperado = "Centro_Universitario SENAC" + testeId;
-        centro_universitario = new CentroUniversitario(nomeCentro_UniversitarioEsperado);
-        centro_universitario.carregarDados(nomeArquivoDisciplinas, nomeArquivoEstudantes, 
-                                                   nomeArquivoMatriculas);
+        centroUniversitario = new CentroUniversitario("Senac");
+        centroUniversitario.carregarDados("disciplinas.txt", "estudantes2.txt", 
+                                                   "matriculas.txt");
+        
+        matriculasArray = carregarMatriculas("matriculas.txt");
+        
     }
 
-    public void criarArquivoEstudantes(String nomeArquivo) throws FileNotFoundException {
-        estudantesArray = new String[3][];
-        String matricula;
-        matricula = randomString("1141629800", 8);
-        estudantesArray[0] = new String[]{matricula, "Jonatas Gomes", matricula + "@sp.senac.br"};
-        matricula = randomString("1140250885", 8);
-        estudantesArray[1] = new String[]{matricula, "Lucas Lopes", matricula + "@sp.senac.br"};
-        matricula = randomString("1140887929", 8);
-        estudantesArray[2] = new String[]{matricula, "Renata Silveira", matricula + "@sp.senac.br"};
-
-        try (PrintWriter pw = new PrintWriter(nomeArquivo)) {
-            for (String[] estudante : estudantesArray) {
-                pw.println(estudante[0] + ":" + estudante[1] + ":" + estudante[2]);
-            }
-        }
-    }
-
-    public void criarArquivoDisciplinas(String nomeArquivo) throws FileNotFoundException {
-        disciplinasArray = new String[3][];
-        disciplinasArray[0] = new String[]{"ED002266", "80"};
-        disciplinasArray[1] = new String[]{"EC002155", "40"};
-        disciplinasArray[2] = new String[]{"POO002067", "80"};
-
-        try (PrintWriter pw = new PrintWriter(nomeArquivo)) {
-            for (String[] disciplina : disciplinasArray) {
-                pw.println(disciplina[0] + ":" + disciplina[1]);
-            }
-        }
-    }
-
-    public void criarArquivoMatriculas(String nomeArquivo) throws FileNotFoundException {
-        matriculasArray = new String[7][];
-        matriculasPorEstudante = new int[]{3, 2, 2};
-        matriculasPorDisciplina = new int[]{2, 3, 2};
-        matriculasArray[0] = new String[]{estudantesArray[0][0], disciplinasArray[0][0]};
-        matriculasArray[1] = new String[]{estudantesArray[0][0], disciplinasArray[1][0]};
-        matriculasArray[2] = new String[]{estudantesArray[0][0], disciplinasArray[2][0]};
-        matriculasArray[3] = new String[]{estudantesArray[1][0], disciplinasArray[1][0]};
-        matriculasArray[4] = new String[]{estudantesArray[1][0], disciplinasArray[0][0]};
-        matriculasArray[5] = new String[]{estudantesArray[2][0], disciplinasArray[1][0]};
-        matriculasArray[6] = new String[]{estudantesArray[2][0], disciplinasArray[2][0]};
-        try (PrintWriter pw = new PrintWriter(nomeArquivo)) {
-            for (String[] matricula : matriculasArray) {
-                pw.println(matricula[0] + ":" + matricula[1]);
-            }
-        }
-    }
-
-    public String randomString(String chars, int length) {
-        Random rand = new Random();
-        StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            buf.append(chars.charAt(rand.nextInt(chars.length())));
-        }
-        return buf.toString();
-    }
-
-    public Estudante findEstudanteById(int id, List<Estudante> estudantes) {
+ 
+    public Estudante findEstudanteById(long id, List<Estudante> estudantes) {
         for (Estudante estudante : estudantes) {
             if (id == estudante.getId()) {
                 return estudante; //estudante encontrado
@@ -121,36 +60,48 @@ public class Centro_UniversitarioTestV2 {
 
     @Test
     public void testNomeCentro_Universitario() {
-        String nomeObtido = centro_universitario.getNome();
+        String nomeObtido = centroUniversitario.getNome();
         assertEquals(nomeCentro_UniversitarioEsperado, nomeObtido);
     }
 
     @Test
     public void testEstudantes() {
-        List<Estudante> estudantes = centro_universitario.getEstudantes();
-        int numeroEsperado = estudantesArray.length;
+        List<Estudante> estudantes = centroUniversitario.getEstudantes();
+        int numeroEsperado = 10;
         int numeroObtido = estudantes.size();
         Assert.assertEquals(numeroEsperado, numeroObtido);
-        for (String[] estudanteArray : estudantesArray) {
-            int id = Integer.parseInt(estudanteArray[0]);
-            String nomeEsperado = estudanteArray[1];
-            String emailEsperado = estudanteArray[2];
+        for (Estudante e : estudantes) {
+            long id = e.getId();
+            String nomeEsperado = e.getNome();
+            String emailEsperado = e.getEmail();
             Estudante estudanteEncontrado = findEstudanteById(id, estudantes);
             assertNotNull(estudanteEncontrado);
             assertEquals(nomeEsperado, estudanteEncontrado.getNome());
             assertEquals(emailEsperado, estudanteEncontrado.getEmail());
         }
     }
+    
+    @Test
+    public void testTipoEstudante() {
+        List<Estudante> estudantes = centroUniversitario.getEstudantes();
+        for(Estudante e : estudantes) {
+            if(e instanceof EstudanteGrad){
+                assertNotNull(((EstudanteGrad) e).getHorasAtividades());
+            } else {
+                assertNotNull(((EstudantePos) e).getOrientador());
+            }
+        }
+    }
 
     @Test
     public void testDisciplinas() {
-        List<Disciplina> disciplinas = centro_universitario.getDisciplinas();
-        int numeroEsperado = disciplinasArray.length;
+        List<Disciplina> disciplinas = centroUniversitario.getDisciplinas();
+        int numeroEsperado = 10;
         int numeroObtido = disciplinas.size();
         assertEquals(numeroEsperado, numeroObtido);
-        for (String[] disciplinaArray : disciplinasArray) {
-            String codigo = disciplinaArray[0];
-            int creditos = Integer.parseInt(disciplinaArray[1]);
+        for (Disciplina disciplina : disciplinas) {
+            String codigo = disciplina.getCodigo();
+            int creditos = disciplina.getCreditos();
             Disciplina disciplinaEncontrada = findDisciplinaByCodigo(codigo, disciplinas);
             assertNotNull(disciplinaEncontrada);
             assertEquals(creditos, disciplinaEncontrada.getCreditos());
@@ -159,36 +110,38 @@ public class Centro_UniversitarioTestV2 {
 
     @Test
     public void testMatriculas() {
-        List<Estudante> estudantes = centro_universitario.getEstudantes();
-        List<Disciplina> disciplinas = centro_universitario.getDisciplinas();
+        List<Estudante> estudantes = centroUniversitario.getEstudantes();
+        List<Disciplina> disciplinas = centroUniversitario.getDisciplinas();
         List<Matricula> matriculas =  null;
         
-        for (int i=0; i<estudantesArray.length; i++) {
-            String[] estudanteArray = estudantesArray[i];
-            int id = Integer.parseInt(estudanteArray[0]);
-            Estudante estudante = findEstudanteById(id, estudantes);
-            assertEquals(matriculasPorEstudante[i], estudante.getMatriculas().size());
+        int k = 0;
+        for (Estudante estudante: estudantes) {
+            long id = estudante.getId();
+            Estudante estudanteEncontrado = findEstudanteById(id, estudantes);
+            assertEquals(matriculasPorEstudante[k], estudanteEncontrado.getMatriculas().size());
+            k++;
         }
         
-        for (int i=0; i<disciplinasArray.length; i++) {
-            String[] disciplinaArray = disciplinasArray[i];
-            String codigo = disciplinaArray[0];
-            Disciplina disciplina = findDisciplinaByCodigo(codigo, disciplinas);
-            assertEquals(matriculasPorDisciplina[i], disciplina.getMatriculas().size());
+        int i=0;
+        for (Disciplina disciplina: disciplinas) {
+            String codigo = disciplina.getCodigo();
+            Disciplina disciplinaEncontrada = findDisciplinaByCodigo(codigo, disciplinas);
+            assertEquals(matriculasPorDisciplina[i], disciplinaEncontrada.getMatriculas().size());
+            i++;
         }
         
-        for (String[] matriculaArray : matriculasArray) {
-            int idEstudante = Integer.parseInt(matriculaArray[0]);
-            String codigoDisciplina = matriculaArray[1];
+        for (Matricula matricula: matriculasArray) {
+            long idEstudante = matricula.getEstudante().getId();
+            String codigoDisciplina = matricula.getDisciplina().getCodigo();
             Estudante estudante = findEstudanteById(idEstudante, estudantes);
             Disciplina disciplina = findDisciplinaByCodigo(codigoDisciplina, disciplinas);
             
             Matricula matriculaEncontradaInEstudante = null;
             matriculas = estudante.getMatriculas();
-            for (Matricula matricula : matriculas) {
-                if (codigoDisciplina.equals(matricula.getDisciplina().getCodigo()) 
-                        && idEstudante == matricula.getEstudante().getId()) {
-                    matriculaEncontradaInEstudante = matricula;
+            for (Matricula matricula1 : matriculas) {
+                if (codigoDisciplina.equals(matricula1.getDisciplina().getCodigo()) 
+                        && idEstudante == matricula1.getEstudante().getId()) {
+                    matriculaEncontradaInEstudante = matricula1;
                     break;
                 }
             }
@@ -196,14 +149,66 @@ public class Centro_UniversitarioTestV2 {
             
             Matricula matriculaEncontradaInDisciplina = null;
             matriculas = disciplina.getMatriculas();
-            for (Matricula matricula : matriculas) {
-                if (codigoDisciplina.equals(matricula.getDisciplina().getCodigo()) 
-                           && idEstudante == matricula.getEstudante().getId()) {
-                    matriculaEncontradaInDisciplina = matricula;
+            for (Matricula matricula2 : matriculas) {
+                if (codigoDisciplina.equals(matricula2.getDisciplina().getCodigo()) 
+                           && idEstudante == matricula2.getEstudante().getId()) {
+                    matriculaEncontradaInDisciplina = matricula2;
                     break;
                 }
             }
             assertNotNull(matriculaEncontradaInDisciplina);
         }
+    }
+    
+    public List<Matricula> carregarMatriculas(String arqMatricula) throws FileNotFoundException {
+        String linha;
+        String linhaQuebrada[];
+        List<Matricula> matriculas = new ArrayList<>();
+        
+        // reader para ler arquivos de matricula
+        BufferedReader bufferMatricula = new BufferedReader(new FileReader(arqMatricula));
+        // LEITURA DE MATRÍCULAS
+        try {
+            // se r!= null significa que r está guardando referência do arquivo físico
+            if (bufferMatricula != null) {
+                linha = bufferMatricula.readLine();
+                while (linha != null) {
+                    linhaQuebrada = linha.split(":");
+                    Long idEstudante = Long.parseLong(linhaQuebrada[0]);
+                    String codDisciplina = linhaQuebrada[1];
+
+                    Disciplina disciplina = null;
+                    Estudante estudante = null;
+                    
+                    for(Estudante est : centroUniversitario.getEstudantes()) {
+                        if(est.getId() == idEstudante) {
+                            estudante = est;
+                        }
+                    }
+                    
+                    for(Disciplina d : centroUniversitario.getDisciplinas()) {
+                        if(d.getCodigo().equals(codDisciplina)) {
+                            disciplina = d;
+                        }
+                    }
+                     
+                    if(estudante != null && disciplina != null) {
+                        Matricula novaMatricula = new Matricula(estudante, disciplina);
+                        matriculas.add(novaMatricula);
+                    }
+                    
+                    // lê a próxima linha
+                    linha = bufferMatricula.readLine();
+                }
+
+            }
+            // encerra comunicação entre arquivo lógico e físico, não encerra arquivo físico
+            bufferMatricula.close();
+
+        } catch (Exception e) {
+            System.exit(-1);
+        }
+        
+        return matriculas;
     }
 }
